@@ -1,35 +1,33 @@
-import type { Metadata } from 'next'
+import type { Metadata, Viewport } from 'next'
+import { Inter } from 'next/font/google'
 import { AuthProvider } from '@/contexts/AuthContext'
 import './globals.css'
 
+const inter = Inter({
+  subsets: ['latin'],
+  variable: '--font-inter',
+})
+
 export const metadata: Metadata = {
   title: 'Accident Geolocation | AI-Powered Investigation Platform',
-  description: 'Identify potential accident locations using AI-powered visual analysis',
-  viewport: 'width=device-width, initial-scale=1',
+  description:
+    'Identify potential accident locations using AI-powered visual analysis',
+}
+
+export const viewport: Viewport = {
+  width: 'device-width',
+  initialScale: 1,
 }
 
 export default function RootLayout({
   children,
-}: {
+}: Readonly<{
   children: React.ReactNode
-}) {
+}>) {
   return (
-    <html lang="en" suppressHydrationWarning>
-      <head>
-        <link
-          href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
-          rel="stylesheet"
-        />
-        <style>{`
-          :root {
-            --font-inter: 'Inter', sans-serif;
-          }
-        `}</style>
-      </head>
+    <html lang="en" className={inter.variable} suppressHydrationWarning>
       <body>
-        <AuthProvider>
-          {children}
-        </AuthProvider>
+        <AuthProvider>{children}</AuthProvider>
       </body>
     </html>
   )
